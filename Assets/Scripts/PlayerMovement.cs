@@ -11,12 +11,14 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private float moveInput;
     private bool canJump = true; // Add a boolean variable to track whether the player can jump
+    private Animator anim;
 
     // Start is called before the first frame update
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -25,20 +27,25 @@ public class PlayerMovement : MonoBehaviour
         moveInput = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
 
-        if (moveInput < 0)
-        {
-            spriteRenderer.flipX = true;
-        }
-        else if (moveInput > 0)
+        if (moveInput > 0.01f)
         {
             spriteRenderer.flipX = false;
         }
+        else if (moveInput < -0.01f)
+        {
+            spriteRenderer.flipX = true;
+        }
+
+        anim.SetBool("Run", moveInput != 0);
+
 
         if (Input.GetButton("Jump") && canJump) // Use GetButton instead of GetButtonDown
         {
             rb.velocity = new Vector3(rb.velocity.x, jumpForce, 0);
             canJump = false; // Set the canJump variable to false when the player jumps
             Invoke("ResetJump", jumpDelay); // Reset the canJump variable after a small delay
+
+         
         }
     }
 

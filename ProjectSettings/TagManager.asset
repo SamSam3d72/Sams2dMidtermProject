@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -46,4 +47,10 @@ TagManager:
     locked: 0
   - name: Terrain
     uniqueID: 2616906749
+    locked: 0
+  - name: Player
+    uniqueID: 313589983
+    locked: 0
+  - name: SpikedBall
+    uniqueID: 1509748087
     locked: 0
